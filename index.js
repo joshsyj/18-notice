@@ -37,7 +37,7 @@ function requestList() {
                     let content = first.content
                     console.log(content)
                     let reg = /src="([^"]*)">/
-                    console.log('最新公告时间：'+ first.title)
+                    console.log('最新公告：'+ first.title)
                     open(content.match(reg)[1], "chrome")
                     open('www.baidu.com?公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告', "chrome")
                 }
