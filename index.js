@@ -24,31 +24,39 @@ function requestList() {
         pageSize: 10,
         title: "",
     }).then(res => {
-        let { items } = res.data.data
-        // console.log(items)
-        if (items && items.length) {
-            let first = items[0]
-            let time1 = new Date(first.publishTime).getTime()
-            let time2 = new Date().getTime() - 60000
-
-            if (time1 >= time2) {
-                let content = first.content
-                console.log(content)
-                let reg = /src="([^"]*)">/
-                console.log('最新公告时间：'+ first.title)
-                open(content.match(reg)[1], "chrome")
-                open('www.baidu.com?公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告', "chrome")
+        // console.log(res.data)
+        if(res.data){
+            let { items } = res.data.data
+            // console.log(items)
+            if (items && items.length) {
+                let first = items[0]
+                let time1 = new Date(first.publishTime).getTime()
+                let time2 = new Date().getTime() - 60000
+    
+                if (time1 >= time2) {
+                    let content = first.content
+                    console.log(content)
+                    let reg = /src="([^"]*)">/
+                    console.log('最新公告时间：'+ first.title)
+                    open(content.match(reg)[1], "chrome")
+                    open('www.baidu.com?公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告公告', "chrome")
+                }
+                else{
+                    console.log('无公告')
+                    setTimeout(()=>{
+                        requestList()
+                    },3000)
+                }
+               
             }
             else{
-                console.log('无公告')
                 setTimeout(()=>{
                     requestList()
                 },3000)
             }
-           
-        }
+        } 
+        
     }).catch((e) => {
-        console.log(e)
         console.log('服务器异常')
         setTimeout(()=>{
             requestList()
